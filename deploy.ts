@@ -1,4 +1,4 @@
-import { Agriblock } from '../../src/contracts/agriblock5'
+import { Agriblock } from './src/contracts/agriblock5'
 import {
     bsv,
     TestWallet,
