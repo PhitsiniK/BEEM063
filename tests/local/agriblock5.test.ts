@@ -14,7 +14,7 @@ import {
     assert,
 } from 'scrypt-ts'
 import { Signature, SECP256K1 } from 'scrypt-ts-lib'
-import { Agriblock } from '/Users/petch/Desktop/agriblock5/src/contracts/agriblock5'
+import { Agriblock } from '../../src/contracts/agriblock5'
 import { getDummySigner, getDummyUTXO } from '../utils/txHelper'
 
 use(chaiAsPromised)
