@@ -1,5 +1,9 @@
 # Agriblock5
 
+## install
+npm install
+npm install scrypt-ts
+npm install scrypt-ts-lib
 ## Build
 
 ```sh
