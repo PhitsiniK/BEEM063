@@ -5,19 +5,8 @@
 ```sh
 npm run build
 ```
+## Compile
+npm run compile
 
-## Testing Locally
-
-```sh
-npm run test
-```
-
-## Run Bitcoin Testnet Tests
-
-```sh
-npm run testnet
-```
-
-# smartcon
-
-# smartcon
+## deploy
+npm run deploy
