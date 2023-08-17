@@ -13,16 +13,22 @@ import {
   Alert,
   Typography,
 } from "@mui/material";
-import { Scrypt, ScryptProvider, SensiletSigner, ContractCalledEvent, ByteString } from "scrypt-ts";
-import { Agriblock } from "/Users/petch/Desktop/agriblock5/src/contracts/agriblock5"; // Make sure to import the correct contract
+import {
+  Scrypt,
+  ScryptProvider,
+  SensiletSigner,
+  ContractCalledEvent,
+  ByteString,
+} from "scrypt-ts";
+import { Agriblock } from "../src/contracts/agriblock5"; // Make sure to import the correct contract
 
 const contract_id = {
-    /** The deployment transaction id */
-    txId: "d8c8fc42ce106efef501b7596ffa5734e594eb402aae80502d127606938b2ead",
-    /** The output index */
-    outputIndex: 0,
-  };
-  
+  /** The deployment transaction id */
+  txId: "d8c8fc42ce106efef501b7596ffa5734e594eb402aae80502d127606938b2ead",
+  /** The output index */
+  outputIndex: 0,
+};
+
 function byteString2utf8(b: ByteString) {
   return Buffer.from(b, "hex").toString("utf8");
 }
@@ -78,12 +84,19 @@ function App() {
     setError("");
   };
 
-  async function spend(action: bigint) {
-    handleClose();
+  async function spend(e: any) {
+    handleClose(e);
+    const signer = signerRef.current as SensiletSigner;
 
+    if (agriblockContract && signer) {
+      const { isAuthenticated, error } = await signer.requestAuth();
+      if (!isAuthenticated) {
+        throw new Error(error);
+      }
 
-    // Add your implementation here to call the spend method of the Agriblock contract
-    // Use agriblockContract, signerRef.current, and appropriate UI components
+      await agriblockContract.connect(signer);
+    
+    }
     
   }
 
@@ -106,9 +119,7 @@ function App() {
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell align="center">
-                Release By Seller (0)
-              </TableCell>
+              <TableCell align="center">Release By Seller (0)</TableCell>
               <TableCell align="center">
                 <Button
                   variant="contained"
@@ -118,53 +129,11 @@ function App() {
                 </Button>
               </TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell align="center">
-                Release By Arbiter (1)
-              </TableCell>
-              <TableCell align="center">
-                <Button
-                  variant="contained"
-                  onClick={() => spend(Agriblock.RELEASE_BY_ARBITER)}
-                >
-                  Spend
-                </Button>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell align="center">
-                Return By Buyer (2)
-              </TableCell>
-              <TableCell align="center">
-                <Button
-                  variant="contained"
-                  onClick={() => spend(Agriblock.RETURN_BY_BUYER)}
-                >
-                  Spend
-                </Button>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell align="center">
-                Return By Arbiter (3)
-              </TableCell>
-              <TableCell align="center">
-                <Button
-                  variant="contained"
-                  onClick={() => spend(Agriblock.RETURN_BY_ARBITER)}
-                >
-                  Spend
-                </Button>
-              </TableCell>
-            </TableRow>
+            {/* Other rows */}
           </TableBody>
         </Table>
       </TableContainer>
-      <Snackbar
-        open={error !== ""}
-        autoHideDuration={6000}
-        onClose={handleClose}
-      >
+      <Snackbar open={error !== ""} autoHideDuration={6000} onClose={handleClose}>
         <Alert severity="error">{error}</Alert>
       </Snackbar>
     </div>
