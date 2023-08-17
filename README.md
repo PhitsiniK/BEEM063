@@ -1,8 +1,8 @@
-# Voting
+# Agriblock5
 
-Build your first decentralized application, or dApp, on the Bitcoin with this tutorial.
 
-[LIVE DEMO](http://classic.scrypt.io/voting/) 🚀
+Before you begin, ensure you have the following installed
+
 
 ## Step 1. Clone the project
 
