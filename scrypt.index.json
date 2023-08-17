@@ -1,0 +1,1 @@
+{"scryptBase":"artifacts","bindings":[{"symbol":"Signature","path":"../node_modules/scrypt-ts-lib/artifacts/src/ec/misc.scrypt"},{"symbol":"SECP256K1","path":"../node_modules/scrypt-ts-lib/artifacts/src/ec/secp256k1.scrypt"},{"symbol":"Agriblock","path":"agriblock5.scrypt"}]}
