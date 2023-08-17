@@ -1,0 +1,33 @@
+import "../node_modules/scrypt-ts-lib/artifacts/src/ec/misc.scrypt";import "../node_modules/scrypt-ts-lib/artifacts/src/ec/secp256k1.scrypt";
+
+contract Agriblock {
+  Ripemd160 seller;
+  Ripemd160 buyer;
+  Ripemd160 arbiter;
+  bytes escrowNonce;
+  public function spend(Sig spenderSig, PubKey spenderPubKey, Signature oracleSig, PubKey oraclePubKey, int action) {
+    Ripemd160 spender = Ripemd160(b'0000000000000000000000000000000000000000');
+    Ripemd160 oracle = Ripemd160(b'0000000000000000000000000000000000000000');
+    if(action == 0) {
+        spender = this.buyer;
+        oracle = this.seller;
+      } else if(action == 1) {
+        spender = this.buyer;
+        oracle = this.arbiter;
+      } else if(action == 2) {
+        spender = this.seller;
+        oracle = this.buyer;
+      } else if(action == 3) {
+        spender = this.seller;
+        oracle = this.arbiter;
+      } else {
+        exit(false);
+      }
+    require(hash160(spenderPubKey) == spender);
+    require(hash160(oraclePubKey) == oracle);
+    bytes oracleMsg = this.escrowNonce + pack(action);
+    int hashInt = unpack(reverseBytes(hash256(oracleMsg), 32) + b'00');
+    require(SECP256K1.verifySig(hashInt, oracleSig, SECP256K1.pubKey2Point(oraclePubKey)));
+    require(checkSig(spenderSig, spenderPubKey));
+  }
+}

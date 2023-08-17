@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agriblock Smart Contract Interaction</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Agriblock Smart Contract Interaction</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Action</th>
+          <th>Button</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Release By Seller (0)</td>
+          <td><button onclick="spend(0n)">Spend</button></td>
+        </tr>
+        <!-- Other rows -->
+      </tbody>
+    </table>
+    <div id="error" style="color: red;"></div>
+  </div>
+  <script>
+    async function spend(action) {
+      try {
+        const response = await fetch('/spend', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ action }),
+        });
+
+        if (response.ok) {
+          // Success
+          document.getElementById('error').textContent = '';
+        } else {
+          const data = await response.json();
+          document.getElementById('error').textContent = data.error || 'An error occurred.';
+        }
+      } catch (error) {
+        document.getElementById('error').textContent = 'An error occurred.';
+      }
+    }
+  </script>
+</body>
+</html>

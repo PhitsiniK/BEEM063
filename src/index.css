@@ -1,0 +1,42 @@
+/* Add global styles here */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Apply a default link color */
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Center content vertically and horizontally */
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Apply some basic padding to the main content area */
+  .main-content {
+    padding: 20px;
+  }
+  
+  /* Apply a simple border to separate sections */
+  .section {
+    border-top: 1px solid #ddd;
+    padding: 20px 0;
+  }
+  
+  /* Style for error messages */
+  .error-message {
+    color: #d9534f;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
